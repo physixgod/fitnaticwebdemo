@@ -59,23 +59,24 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active">
+                    <a href="index.html" class="nav-link dropdown-toggle">
     <i class="bi bi-person me-2"></i>Users
 </a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a href="#" class="nav-item nav-link active" data-bs-toggle="dropdown">
     <i class="bi bi-trophy me-2"></i>Competitions
 </a>
 
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ path('add_competition') }}" class="dropdown-item">Add Competition</a>
-                            <a href="{{ path('list_Competitions') }}" class="dropdown-item">Manage Competitions</a>
+                           <a href="{{ path('list_Competitions') }}" class="dropdown-item">Manage Competitions</a>
                             <a href="{{ path('add_sporttype') }}" class="dropdown-item">Add Sport Type</a>
-                         <a href="{{ path('list_sport') }}"class="dropdown-item">Manage Sports Types</a>
+                           <a href="{{ path('list_sport') }}"class="dropdown-item">Manage Sports Types</a>
+                     
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-<a href="{{ path('points') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
     <i class="fas fa-running me-2"></i>Activities
 </a>
 
@@ -86,7 +87,7 @@
                             <a href="element.html" class="dropdown-item">Manage Exercices</a>
                         </div>
                     </div>
-                    <a href="{{ path('points') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <a href="{{ path('points') }}" class="nav-link dropdown-toggle" >
     <i class="bi bi-award me-2"></i>Leaderboard
 </a>
                     <a href="widget.html" class="nav-item nav-link"><i class="bi bi-exclamation-diamond me-2"></i>Reclamations</a>
@@ -120,6 +121,127 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+            
+<div  class="bg-light rounded h-100 p-4">
+    <h2  class="text-primary">Fill the blanks to add a new competition</h2>
+       <style>
+        
+        .form-control {
+            height: 35px; 
+            width :300px;
+        }
+           .form-container {
+        margin-top: 40px; 
+    }
+    </style>
+
+  {{ form_start(form, {'attr': {'class': 'form-container'}}) }}
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.name, 'Competition Name', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.competitionCategory, 'Competition Category', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.competitionCategory, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.location, 'Location', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.sportType, 'Sport Type', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.sportType, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.entryFee, 'Entry Fee (DT)', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.entryFee, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.entryFee) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.prize, 'Prize', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prize, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.maxParticipants, 'Max Participants', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.maxParticipants, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.maxParticipants) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.start_date, 'Start Date', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.start_date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            {{ form_label(form.end_date, 'End Date', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.end_date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+           <div class="custom-button-container">
+        <div class="col text-end">
+            {{ form_row(form.save, {'attr': {'class': 'btn btn-primary','id': 'save_button'}}) }}
+              
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var startDateInput =document.getElementById('{{ form.start_date.vars.id }}');
+        console.log(startDateInput);
+        var endDateInput = document.getElementById('{{ form.end_date.vars.id }}');
+         console.log(endDateInput);
+        var saveButton = document.getElementById('{{ form.save.vars.id }}');;
+
+        saveButton.addEventListener('click', function (event) {
+            if (!validateDates()) {
+                event.preventDefault(); 
+            }
+        });
+
+        function validateDates() {
+            var startDateValue = new Date(startDateInput.value);
+            var endDateValue = new Date(endDateInput.value);
+
+            if (startDateValue >= endDateValue) {
+                alert('End date must be greater than the start date.');
+                endDateInput.value = '';
+                return false;
+            }
+
+            return true;
+        }
+    });
+</script>
+
+    {{ form_end(form) }}
+</div>
+<style>
+    .custom-button-container {
+        margin-top: -130px; 
+        margin-Right:300px;
+        
+   
+    }
+</style>
+
 
 
             <!-- Sale & Revenue Start -->

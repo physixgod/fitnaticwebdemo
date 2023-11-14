@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +51,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="dashmin-1.0.0/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="{{ asset('dashmin-1.0.0/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -59,7 +60,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active">
+                    <a href="index.html" class="nav-link dropdown-toggle">
     <i class="bi bi-person me-2"></i>Users
 </a>
                     <div class="nav-item dropdown">
@@ -71,11 +72,12 @@
                             <a href="{{ path('add_competition') }}" class="dropdown-item">Add Competition</a>
                             <a href="{{ path('list_Competitions') }}" class="dropdown-item">Manage Competitions</a>
                             <a href="{{ path('add_sporttype') }}" class="dropdown-item">Add Sport Type</a>
-                         <a href="{{ path('list_sport') }}"class="dropdown-item">Manage Sports Types</a>
+                           <a href="{{ path('list_sport') }}"class="dropdown-item">Manage Sports Types</a>
+                     
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-<a href="{{ path('points') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
     <i class="fas fa-running me-2"></i>Activities
 </a>
 
@@ -86,7 +88,7 @@
                             <a href="element.html" class="dropdown-item">Manage Exercices</a>
                         </div>
                     </div>
-                    <a href="{{ path('points') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <a href="{{ path('points') }}" class="nav-item nav-link active" >
     <i class="bi bi-award me-2"></i>Leaderboard
 </a>
                     <a href="widget.html" class="nav-item nav-link"><i class="bi bi-exclamation-diamond me-2"></i>Reclamations</a>
@@ -110,7 +112,7 @@
                     
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="dashmin-1.0.0/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="{{ asset('dashmin-1.0.0/img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">Khalil Majdoub</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -120,6 +122,101 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+            
+<div  class="bg-light rounded h-100 p-4">
+    <h2 class="text-primary">Choose the user to award points to</h2>
+  
+    <style>
+        .form-control {
+            height: 35px;
+            width: 300px;
+            margin-bottom: 10px;    
+        }
+
+        .form-container {
+            margin-top: 40px;
+           
+        }
+    </style>
+
+    {{ form_start(form, {'attr': {'class': 'form-container'}}) }}
+
+     <div>
+        <div>
+            {{ form_label(form.Username, 'Username', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.Username, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div>
+            {{ form_label(form.points, 'Points', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.points, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="custom-button-container">
+        <div class="col text-end">
+            {{ form_row(form.save, {'attr': {'class': 'btn btn-primary', 'id': 'save_button'}}) }}
+        </div>
+    </div>
+    <div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Leaderboard</h6>
+        <canvas id="bar-chart"></canvas>
+    </div>
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+ <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var ctx = document.getElementById('bar-chart').getContext('2d');
+                    var userData = {{ userData|json_encode|raw }};
+                    console.log(userData);
+
+                    // Customize this part based on your data structure
+                    var labels = userData.map(function(user) {
+                        return user.Username;
+                    });
+                    console.log (labels);
+
+                    var data = userData.map(function(user) {
+                        return user.points;
+                    });
+
+
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Points',
+                                data: data,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+    </div>
+</div>
+<style>
+    .custom-button-container {
+        margin-top: 30px;
+        margin-Right:83%;
+    }   
+</style>
+
+
 
 
             <!-- Sale & Revenue Start -->

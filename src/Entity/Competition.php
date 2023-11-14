@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use App\Repository\CompetitionRepository;
 use Doctrine\DBAL\Types\Types;
@@ -33,9 +34,11 @@ class Competition
     private ?string $competitionCategory = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message: 'Entry fee must be a positive number')]
     private ?int $entryFee = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message: 'Max Participants must be a positive number')]
     private ?int $maxParticipants = null;
 
     #[ORM\Column(length: 250)]
