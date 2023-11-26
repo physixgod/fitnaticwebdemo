@@ -3,21 +3,29 @@
 namespace App\Form;
 
 use App\Entity\Competition;
+use App\Entity\SportType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class CompetitionType extends AbstractType
+
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
+    }
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {   $locations = $this->getLocations();
+        $sportTypes = $this->getSportTypes();
         $builder
             ->add('name')
             ->add('start_date', DateType::class, [
@@ -32,7 +40,13 @@ class CompetitionType extends AbstractType
                 'format' => 'yyyy-MM-dd',
 
             ])
-            ->add('location')
+            ->add('location', EntityType::class, [
+                'class' => SportType::class, // Replace with the actual namespace of your Author entity
+                'choice_label' => 'location', // Assuming Author entity has a method getFullName() that returns the author's full name
+                'placeholder' => '', 
+                'required' => true, 
+
+            ])
             ->add('description')
             ->add('competitionCategory', ChoiceType::class, [
                 'label' => 'Competition Category',
@@ -54,12 +68,32 @@ class CompetitionType extends AbstractType
             ->add('maxParticipants')
             
             ->add('prize')
-            ->add('sportType')
+              ->add('sportType', EntityType::class, [
+                'class' => SportType::class, // Replace with the actual namespace of your Author entity
+                'choice_label' => 'name', // Assuming Author entity has a method getFullName() that returns the author's full name
+                'placeholder' => ' ', 
+                'required' => true, 
+
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Add Competition',
             ])
+            
         ;
         ;
+    }
+    private function getLocations(): array
+    {
+        $locations = $this->entityManager->getRepository(SportType::class)->findDistinctLocations();
+
+        return $locations;
+    }
+
+    private function getSportTypes(): array
+    {
+        $sportTypes = $this->entityManager->getRepository(SportType::class)->findAllSportTypes();
+
+        return $sportTypes;
     }
     public function validateEndDate($value, ExecutionContextInterface $context)
     {

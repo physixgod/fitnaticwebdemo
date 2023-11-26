@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SportTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,14 @@ class SportType
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
+
+    #[ORM\OneToMany(mappedBy: 'SportType', targetEntity: Competition::class)]
+    private Collection $competitions;
+
+    public function __construct()
+    {
+        $this->competitions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,36 @@ class SportType
     public function setEndDate(\DateTimeInterface $end_date): static
     {
         $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competition>
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Competition $competition): static
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions->add($competition);
+            $competition->setSportType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): static
+    {
+        if ($this->competitions->removeElement($competition)) {
+            // set the owning side to null (unless already changed)
+            if ($competition->getSportType() === $this) {
+                $competition->setSportType(null);
+            }
+        }
 
         return $this;
     }

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
+    
     <title>Fitnatic HOME PAGE</title>
 <!--
 
@@ -51,9 +51,9 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#top" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
+                            <li class="scroll-to-section"><a href="#our-classes"class="active">Competitions</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
                             <li class="main-button"><a href="#">USERNAME</a></li>
@@ -72,27 +72,64 @@ https://templatemo.com/tm-548-training-studio
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
-        </video>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                
-<h2>Fitnatic</h2>
-<p><h6>Our site has several sections:</h6></p>
-<ul>
-    <li><h6><em>Activities</em>: Here, users can follow their exercise routines.</h6></li>
-    <li><h6><em>Competitions</em>: Participate in various competitions.</h6></li>
-    <li><h6><em>Forum</em>: Engage in discussions and forums.</h6></li>
-    <li><h6><em>Food Monitoring</em>: Track your dietary habits.</h6></li>
-</ul>
-
-
+<section class="section" id="competition-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3" style="margin-bottom: -90px;">
+                <div class="section-heading text-center">
+                    <h2>{{ competition.name }} Details</h2>
+                    <img src="{{ asset('user/assets/images/description.png') }}" alt="" style="width: 50px; height: 50px;">
+                    <p>{{ competition.description }}</p>
+                </div>
             </div>
+            <div class="col-lg-12 text-center mt-4">
+                <ul class="list-unstyled row">
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/date.png') }}" alt="" style="width: 50px; height: 50px;">
+                        <h4>Start Date</h4>
+                        <p>{{ competition.startDate|date('Y-m-d') }}</p>
+                    </li>
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/sport1.jpg') }}" alt="" style="width: 50px; height: 50px;">
+                        <h4>Sport Type</h4>
+                        <p>{{ competition.sportType }}</p>
+                    </li>
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/date.png') }}" alt="" style="width: 50px; height: 50px;">
+                        <h4>End Date</h4>
+                        <p>{{ competition.endDate|date('Y-m-d') }}</p>
+                    </li>
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/ticket.png') }}" alt="" style="width: 70px; height: 70px;">
+                        <h4>Entry Fee</h4>
+                        <p>{{ competition.entryFee }}</p>
+                    </li>
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/location.png') }}" alt="" style="width: 50px; height: 50px;">
+                        <h4>Location</h4>
+                        <p>{{ competition.location }}</p>
+                    </li>
+                    <li class="mb-4 col-md-6">
+                        <img src="{{ asset('user/assets/images/users.png') }}" alt="" style="width: 50px; height: 50px;">
+                        <h4>Participants</h4>
+                        <p>{{ competition.maxParticipants }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-12 text-center mt-4">
+    <a href="{{ path('app_competitions') }}" class="btn btn-primary" style="background-color: #e85d39; color: white;">Back to Competitions</a>
+</div>
         </div>
     </div>
+</section>
+
+
+
+
+
+
+ 
     <!-- ***** Main Banner Area End ***** -->
 
     <!-- ***** Features Item Start ***** -->
@@ -150,3 +187,4 @@ https://templatemo.com/tm-548-training-studio
 
   </body>
 </html>
+

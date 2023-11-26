@@ -45,4 +45,19 @@ class SportTypeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findDistinctLocations(): array
+{
+    return $this->createQueryBuilder('s')
+        ->select('DISTINCT s.location')
+        ->getQuery()
+        ->getResult();
+}
+
+public function findAllSportTypes(): array
+{
+    return $this->createQueryBuilder('s')
+        ->select('s.name')
+        ->getQuery()
+        ->getResult();
+}
 }

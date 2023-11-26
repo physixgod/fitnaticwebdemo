@@ -50,6 +50,9 @@ class Competition
     #[ORM\Column(length: 250)]
     private ?string $sportType = null;
 
+    #[ORM\ManyToOne(inversedBy: 'competitions')]
+    private ?SportType $SportType = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -186,4 +189,15 @@ class Competition
 
         return $this;
     }
+    public function getSportType1(): ?SportType
+{
+    return $this->sportType;
+}
+
+public function setSportType1(SportType $SportType): static
+{
+    $this->sportType = $SportType;
+
+    return $this;
+}
 }

@@ -51,9 +51,9 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#top" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
+                            <li class="scroll-to-section"><a href="#our-classes"class="active">Competitions</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
                             <li class="main-button"><a href="#">USERNAME</a></li>
@@ -72,27 +72,128 @@ https://templatemo.com/tm-548-training-studio
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
-        </video>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                
-<h2>Fitnatic</h2>
-<p><h6>Our site has several sections:</h6></p>
-<ul>
-    <li><h6><em>Activities</em>: Here, users can follow their exercise routines.</h6></li>
-    <li><h6><em>Competitions</em>: Participate in various competitions.</h6></li>
-    <li><h6><em>Forum</em>: Engage in discussions and forums.</h6></li>
-    <li><h6><em>Food Monitoring</em>: Track your dietary habits.</h6></li>
-</ul>
+        <style>
+    .action-buttons a {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: bold;
+        border: 1px solid #fff;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-buttons a:hover {
+        background-color: #2980b9;
+    }
+    .take-quiz-button {
+    display: inline-block;
+    margin-bottom:30px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: #3498db;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.take-quiz-button:hover {
+    background-color: #2980b9;
+    /* Add extra styles for hover state if needed */
+}
+
+/* Add any additional styles specific to the "Take a quiz" button */
+.take-quiz-button {
+    /* Add extra styles here */
+}
+
+</style>        
+{# templates/competition/listCompetitions.html.twig #}
+<section class="section" id="schedule">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading dark-bg">
+                <a href="#" class="take-quiz-button">Take a quiz</a>
+                    <h2>Competitions</h2>
+                    <img src="assets/images/Competitions1.jpg" alt="">
+                    <p>Here you can find all the currently open competitions</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {# Remove the filters for simplicity, you can add them based on your needs #}
+                <div class="schedule-table filtering">
+                    <table>
+                        <thead>
+                            <tr>
+                                 <th style="color: white;">Competition Name</th>
+                                <th style="color: white;">Start Date</th>
+                                <th style="color: white;">End Date</th>
+                                <th style="color: white;">Location</th>
+                                  <th style="color: white;">Sport Type</th> 
+                                 <th style="color: white;">Actions</th>
+                                   
+                                <!-- Add more headers based on your needs -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for competition in competitions %}
+                                <tr>
+                                    <td>{{ competition.name }}</td>
+                                    <td>{{ competition.startDate|date('Y-m-d ') }}</td>
+                                    <td>{{ competition.endDate|date('Y-m-d ') }}</td>
+                                    <td>{{ competition.location }}</td>
+                                    <td>{{competition.sportType}}
+                                    <td class="action-buttons">
+        <a href={{ path('competitions_details', { id: competition.id }) }}>Read More</a>
+        <a href="#" onclick="showForm()">Participate</a>
+        <a href={{ path('competition_evaluation')}} >Evaluate</a>
+ </td>
+ 
+                                    <!-- Add more cells based on your needs -->
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                   
+<div id="emailForm" style="display: none; text-align: center; margin-top: 20px;">
+    {{ form_start(emailForm) }}
+    <div style="margin-bottom: 10px;">
+        {{ form_label(emailForm.email, 'Enter your email:', {'label_attr': {'style': 'color: white;'}}) }}
+        {{ form_widget(emailForm.email, {'attr': {'class': 'form-control mx-auto d-block', 'style': 'width: 200px; text-align: center; height: 30px;'}}) }}
+    </div>
+    {{ form_widget(emailForm.save, {'label': 'Send', 'attr': {'class': 'btn btn-primary', 'style': 'margin-top: 10px;'}}) }}
+    {{ form_end(emailForm) }}
+</div>
 
 
+
+                </div>
             </div>
         </div>
     </div>
+</section>
+<script>
+    function showForm() {
+      document.getElementById('emailForm').style.display = 'block';
+    }
+
+
+  </script>
+
+ 
     <!-- ***** Main Banner Area End ***** -->
 
     <!-- ***** Features Item Start ***** -->

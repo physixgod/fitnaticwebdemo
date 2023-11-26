@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Points;
 use App\Form\PointsType;
+use App\Repository\PointsRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,23 +21,48 @@ class PointsController extends AbstractController
         ]);
     }
     #[Route('/userpoints', name: 'points')]
-    public function addPoints(ManagerRegistry $manager, Request $request): Response
+    public function addPoints(ManagerRegistry $manager, Request $request, PointsRepository $repo): Response
     {
         $em = $manager->getManager();
-
+        $data = $repo->findAll();
         $points = new Points();
-        $userData = $this->getDoctrine()->getRepository(Points::class)->findAll();
-        $form = $this->createForm(PointsType::class, $points);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted () ) {   
-            $em->persist($points);
-            $em->flush();
-            return $this->redirectToRoute('points');
-        
-          
+        $pointsUser = [];
+        $pointsP = [];
+    
+        foreach ($data as $point) {
+            $pointsUser[] = $point->getUsername();
+            $pointsP[] = $point->getPoints();   
         }
-        
-        return $this->renderForm('points/userpoints.html.twig', ['form' => $form,'userData' => $userData]);
-    } 
+    
+        $form = $this->createForm(PointsType::class, $points);
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() ) {
+            $enteredUsername = $form->get('Username')->getData();
+            $enteredPoints = $form->get('points')->getData();
+    
+            
+            $existingPointsEntity = $repo->findOneBy(['Username' => $enteredUsername]);
+    
+            if ($existingPointsEntity) {
+               
+                $existingPoints = $existingPointsEntity->getPoints();
+                $existingPointsEntity->setPoints($existingPoints + $enteredPoints);
+                $em->persist($existingPointsEntity);
+            } else {
+                
+                $points->setUsername($enteredUsername);
+                $points->setPoints($enteredPoints);
+                $em->persist($points);
+            }
+    
+            $em->flush();
+    
+            return $this->redirectToRoute('points');
+        }
+    
+        return $this->renderForm('points/userpoints.html.twig', ['form' => $form, 'username' => json_encode($pointsUser), 'points' => json_encode($pointsP)]);
+    }
+    
 }

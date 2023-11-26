@@ -123,7 +123,7 @@
             </nav>
             <!-- Navbar End -->
             
-<div  class="bg-light rounded h-100 p-4">
+<div align="center"  class="bg-light rounded h-100 p-4">
     <h2 class="text-primary">Choose the user to award points to</h2>
   
     <style>
@@ -158,61 +158,55 @@
     </div>
     <div class="col-sm-12 col-xl-6">
     <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Leaderboard</h6>
+        <h2 class="text-primary">Leaderboard</h2>
         <canvas id="bar-chart"></canvas>
     </div>
 </div>
 </div>
 
 
+  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
- <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    var ctx = document.getElementById('bar-chart').getContext('2d');
-                    var userData = {{ userData|json_encode|raw }};
-                    console.log(userData);
-
-                    // Customize this part based on your data structure
-                    var labels = userData.map(function(user) {
-                        return user.Username;
-                    });
-                    console.log (labels);
-
-                    var data = userData.map(function(user) {
-                        return user.points;
-                    });
-
-
-                    var chart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Points',
-                                data: data,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                });
-            </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('bar-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{username|raw}},
+                datasets: [{
+                    label: 'Points',
+                    data: {{points|raw}},
+                    backgroundColor: '#009CFF',
+                   
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                     x: {
+            grid: {
+                display: false 
+            }
+        },
+                    y: {
+                        beginAtZero: true
+                    }
+                    
+                    
+                }
+            }
+        });
+    });
+</script>
 
     </div>
 </div>
 <style>
     .custom-button-container {
         margin-top: 30px;
-        margin-Right:83%;
+        margin-Right:46%;
     }   
 </style>
 
