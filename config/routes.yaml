@@ -4,3 +4,6 @@
 email:
     path: /email
     controller: App\Controller\CompetitionController::sendEmail
+print_competition:
+    path: '/toPdf/{id}'
+    controller: 'App\Controller\CompetitionController::printCompetition'

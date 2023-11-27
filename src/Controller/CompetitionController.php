@@ -12,6 +12,7 @@ use App\Service\MailService;
 use CompileError;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Snappy\Pdf;
 use Mailtrap\Config;
 use Mailtrap\Helper\ResponseHelper;
 use Mailtrap\MailtrapClient;
@@ -108,16 +109,20 @@ public function listcompetitinosuser(CompetitionRepository $competitionrepo,Requ
         $form->handleRequest($request);
 
         if ($form->isSubmitted() ) {
-          
+            $competitionName = $request->request->get('competition_name');
             $email = $form->get('email')->getData();
-            $mailService->sendEmail($email, 'Confirmation of Participation!', '<p>Dear participant,<br><br>'
-            . 'Thank you for joining our competition. Your participation is greatly appreciated, and we look forward to your active involvement. If you have any questions or need assistance, please don\'t hesitate to contact us.<br><br>'
-            . 'Best regards,<br>'
-            . 'The Competition Team!</p>');
+            $mailContent = "<p>Dear participant,<br>
+            Thank you for joining the < $competitionName > competition. Your participation is greatly appreciated, and we look forward to your active involvement. If you have any questions or need assistance, please don't hesitate to contact us.<br>
+            Best regards,<br>
+            The Competition Team!</p>";
+        
         
 
+$mailService->sendEmail($email, 'Confirmation of Participation!', $mailContent);
+
             
-  
+$this->addFlash('success', 'Email sent successfully!');
+
             return $this->redirectToRoute('app_competitions');
         }
 
@@ -142,20 +147,22 @@ public function sendEmail(MailerInterface $mailer , MailService $mailService): R
 
     return $this->render('competition/test.html.twig');
 }
+
 public function handleEmail(Request $request , MailerInterface $mailer , MailService $mailService): Response
     {
         $form = $this->createForm(EmailSendType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() ) {
+            $competitionName = $request->request->get('competition_name');
           
             $email = $form->get('email')->getData();
-            $mailService->sendEmail($email, 'Confirmation of Participation!', '<p>Dear participant,
-
-            Thank you for joining This competition Your participation is greatly appreciated, and we look forward to your active involvement. If you have any questions or need assistance, please dont hesitate to contact us.
-            
+            $mailContent = "<p>Dear participant,
+            Thank you for joining the $competitionName competition. Your participation is greatly appreciated, and we look forward to your active involvement. If you have any questions or need assistance, please don't hesitate to contact us.
             Best regards,
-            The Competition Team!</p>');
+            The Competition Team!</p>";
+        
+        $mailService->sendEmail($email, 'Confirmation of Participation!', $mailContent);
 
             
   
@@ -179,6 +186,7 @@ public function handleEmail(Request $request , MailerInterface $mailer , MailSer
             $comment = $form->get('Comment')->getData();
             
             
+            
             $badWords = ['rape', 'kill', 'suicide'];
 
             
@@ -190,9 +198,7 @@ public function handleEmail(Request $request , MailerInterface $mailer , MailSer
             return $this->redirectToRoute('app_competitions');
             
 
-            // Handle the form submission logic
-            // ...
-
+         
            
         }
 
@@ -210,6 +216,68 @@ public function handleEmail(Request $request , MailerInterface $mailer , MailSer
         }
 
         return false;
+    }
+    #[Route('/toPdf/{id}', name: 'print_competition')]
+    public function printCompetition(Pdf $pdf, $id,CompetitionRepository $competitionrepo)
+    {
+        $competition = $competitionrepo->find($id);
+        $name = $competition->getName();
+
+        $html = $this->renderView('competition/pdf.html.twig', ['competition' => $competition]);
+
+        $filename = 'competition_' . $name . '.pdf';
+
+        return new Response(
+            $pdf->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filename . '"',
+            ]
+        );
+    }
+    #[Route('/quiz1', name: 'quiz_app')]
+    public function quiz(Request $request): Response
+    {
+        return $this->render('competition/quiz.html.twig');
+    }  
+    #[Route('/quiz/submit', name: 'quiz_submit', methods: ['POST'])]
+    public function submitQuiz(Request $request): Response
+    {
+       
+        $answers = $request->request->all();
+
+        
+        $score = $this->calculateScore($answers);
+
+        
+        return $this->render('competition/quizresult.html.twig', ['score' => $score]);
+    }
+
+    private function calculateScore(array $answers): int
+    {
+       
+        $correctAnswers = [
+            'q1' => 'a',    
+            'q2' => 'a',    
+            'q3' => 'a',    
+            'q4' => 'b',    
+            'q5' => 'b',    
+            'q6' => 'a',    
+            'q7' => 'a',    
+            'q8' => 'b',    
+            'q9' => 'a',    
+            'q10' => 'a',   
+        ];
+
+        $score = 0;
+        foreach ($answers as $question => $selectedOption) {
+            if (isset($correctAnswers[$question]) && $correctAnswers[$question] === $selectedOption) {
+                $score++;
+            }
+        }
+
+        return $score;
     }
 }
 

@@ -109,12 +109,12 @@ https://templatemo.com/tm-548-training-studio
 
 .take-quiz-button:hover {
     background-color: #2980b9;
-    /* Add extra styles for hover state if needed */
+  
 }
 
-/* Add any additional styles specific to the "Take a quiz" button */
+
 .take-quiz-button {
-    /* Add extra styles here */
+  
 }
 
 </style>        
@@ -124,9 +124,9 @@ https://templatemo.com/tm-548-training-studio
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="section-heading dark-bg">
-                <a href="#" class="take-quiz-button">Take a quiz</a>
+                <a href={{ path('quiz_app')}} class="take-quiz-button">Take a quiz</a>
                     <h2>Competitions</h2>
-                    <img src="assets/images/Competitions1.jpg" alt="">
+                    <img src="assets/images/slide-01.jpg" alt="">
                     <p>Here you can find all the currently open competitions</p>
                 </div>
             </div>
@@ -158,7 +158,7 @@ https://templatemo.com/tm-548-training-studio
                                     <td>{{competition.sportType}}
                                     <td class="action-buttons">
         <a href={{ path('competitions_details', { id: competition.id }) }}>Read More</a>
-        <a href="#" onclick="showForm()">Participate</a>
+      <a href="#" onclick="showForm('{{ competition.name }}')">Participate</a>
         <a href={{ path('competition_evaluation')}} >Evaluate</a>
  </td>
  
@@ -167,6 +167,11 @@ https://templatemo.com/tm-548-training-studio
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% for flash_message in app.session.flashbag.get('success') %}
+    <div class="alert alert-success"role="alert" style="margin-top: 30px; width: 600px; margin-left: auto; margin-right: auto;">
+        {{ flash_message }}
+    </div>
+{% endfor %}
                    
 <div id="emailForm" style="display: none; text-align: center; margin-top: 20px;">
     {{ form_start(emailForm) }}
@@ -175,6 +180,7 @@ https://templatemo.com/tm-548-training-studio
         {{ form_widget(emailForm.email, {'attr': {'class': 'form-control mx-auto d-block', 'style': 'width: 200px; text-align: center; height: 30px;'}}) }}
     </div>
     {{ form_widget(emailForm.save, {'label': 'Send', 'attr': {'class': 'btn btn-primary', 'style': 'margin-top: 10px;'}}) }}
+    <input type="hidden" name="competition_name" id="competitionNameInput" value="">    
     {{ form_end(emailForm) }}
 </div>
 
@@ -184,10 +190,12 @@ https://templatemo.com/tm-548-training-studio
             </div>
         </div>
     </div>
+    </div>
 </section>
 <script>
-    function showForm() {
-      document.getElementById('emailForm').style.display = 'block';
+       function showForm(competitionName) {
+        document.getElementById('emailForm').style.display = 'block';
+        document.getElementById('competitionNameInput').value = competitionName;
     }
 
 

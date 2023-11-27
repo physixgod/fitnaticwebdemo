@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <title>Fitnatic HOME PAGE</title>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+
+ <style>
+    body {
+        background-color: #222;
+        color: #fff;
+    }
+
+    .quiz-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+    }
+
+    .question {
+        display: none;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    .question.active {
+        display: block;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        color: #fff;
+    }
+
+    input[type="radio"] {
+        margin-right: 10px;
+        color: #fff;
+    }
+
+    .quiz-button {
+        display: block;
+        margin: 20px auto;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: 1px solid #fff;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .quiz-button:hover {
+        background-color: #2980b9;
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">Fit<em> Natic</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top">Home</a></li>
+                            <li class="scroll-to-section"><a href="#features">Activities</a></li>
+                            <li class="scroll-to-section"><a href="#our-classes" class="active">Competitions</a></li>
+                            <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
+                            <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li>
+                            <li class="main-button"><a href="#">USERNAME</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <section class="section" id="schedule" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading dark-bg">
+                        <h2>General Quiz <em>About Sports</em></h2>
+                        <img src="assets/images/slide-01.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-6 offset-lg-3 quiz-container">
+             <form action="{{ path('quiz_submit') }}" method="post">
+                <div id="question1" class="question active" >
+                    <label for="q1">1. Who won the FIFA World Cup in 2006?</label>
+                    <div>
+                        <input type="radio" name="q1" value="a"> Italy
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="b"> Brazil
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="c"> Germany
+                    </div>
+                    <button class="quiz-button" type="button" onclick="nextQuestion('question1', 'question2')">Next</button>
+                </div>
+
+                <div id="question2" class="question">
+                    <label for="q2">2. Who was named the best player in 2012?</label>
+                    <div>
+                        <input type="radio" name="q2" value="a"> Lionel Messi
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="b"> Cristiano Ronaldo
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="c"> Andres Iniesta
+                    </div>
+                    <button class="quiz-button" type="button" onclick="nextQuestion('question2', 'question3')">Next</button>
+                </div>
+
+                <div id="question3" class="question">
+                    <label for="q3">3. Which country hosted the Olympics in 2016?</label>
+                    <div>
+                        <input type="radio" name="q3" value="a"> Brazil
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="b"> China
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="c"> United States
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question3', 'question4')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question4" class="question">
+                    <label for="q4">4. In which year did Michael Jordan retire from professional basketball?</label>
+                    <div>
+                        <input type="radio" name="q4" value="a"> 1993
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="b"> 1998
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="c"> 2003
+                    </div>
+                    <button class="quiz-button" type="button" onclick="nextQuestion('question4', 'question5')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question5" class="question">
+                    <label for="q5">5. Who holds the record for the most goals scored in a single FIFA World Cup tournament?</label>
+                    <div>
+                        <input type="radio" name="q5" value="a"> Pele
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="b"> Miroslav Klose
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="c"> Ronaldo Nazario
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question5', 'question6')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question6" class="question">
+                    <label for="q6">6. Which sport is known as the "king of sports"?</label>
+                    <div>
+                        <input type="radio" name="q6" value="a"> Soccer
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="b"> Basketball
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="c"> Tennis
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question6', 'question7')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question7" class="question">
+                    <label for="q7">7. Who is the all-time leading scorer in NBA history?</label>
+                    <div>
+                        <input type="radio" name="q7" value="a"> LeBron James
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="b"> Kareem Abdul-Jabbar
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="c"> Michael Jordan
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question7', 'question8')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question8" class="question">
+                    <label for="q8">8. Which country won the first Cricket World Cup?</label>
+                    <div>
+                        <input type="radio" name="q8" value="a"> Australia
+                    </div>
+                    <div>
+                        <input type="radio" name="q8" value="b"> West Indies
+                    </div>
+                    <div>
+                        <input type="radio" name="q8" value="c"> England
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question8', 'question9')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question9" class="question">
+                    <label for="q9">9. In which year did Usain Bolt set the world record in the 100m and 200m sprints?</label>
+                    <div>
+                        <input type="radio" name="q9" value="a"> 2008
+                    </div>
+                    <div>
+                        <input type="radio" name="q9" value="b"> 2012
+                    </div>
+                    <div >
+                        <input type="radio" name="q9" value="c"> 2016
+                    </div>
+                    <button class="quiz-button"  type="button" onclick="nextQuestion('question9', 'question10')">Next</button>
+                </div>
+
+                <!-- Add more questions following the same pattern -->
+
+                <div id="question10" class="question">
+                    <label for="q10">10. Which country has won the most Olympic gold medals?</label>
+                    <div>
+                        <input type="radio" name="q10" value="a"> United States
+                    </div>
+                    <div>
+                        <input type="radio" name="q10" value="b"> China
+                    </div>
+                    <div>
+                        <input type="radio" name="q10" value="c"> Russia
+                    </div>
+                    
+                    
+                    <button  class="quiz-button" class="quiz-button" type="submit">Submit Quiz</button>
+                     </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function nextQuestion(currentQuestionId, nextQuestionId) {
+            // Hide the current question
+            document.getElementById(currentQuestionId).classList.remove('active');
+
+            // Show the next question
+            document.getElementById(nextQuestionId).classList.add('active');
+        }
+    </script>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; 
+                    
+                    - Designed by <a rel="nofollow" href="https://templatemo.com" class="tm-text-link" target="_parent">Fitnatic Team</a><br>
+
+        
+                
+                </p>
+                    
+                    <!-- You shall support us a little via PayPal to info@templatemo.com -->
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <!-- Include CSS stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+
+    <!-- Include JavaScript libraries -->
+    <script src="{{ asset('user/assets/js/jquery-2.1.0.min.js') }}"></script>
+
+    <!-- Bootstrap -->
+    <script src="{{ asset('user/assets/js/popper.js') }}"></script>
+    <script src="{{ asset('user/assets/js/bootstrap.min.js') }}"></script>
+<!-- Plugins -->
+<script src="{{ asset('user/assets/js/scrollreveal.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/imgfix.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/mixitup.js') }}"></script>
+<script src="{{ asset('user/assets/js/accordions.js') }}"></script>
+
+<!-- Global Init -->
+<script src="{{ asset('user/assets/js/custom.js') }}"></script>
+
+
+  </body>
+</html>
