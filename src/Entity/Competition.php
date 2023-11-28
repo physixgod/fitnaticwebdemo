@@ -99,9 +99,9 @@ class Competition
         return $this->location;
     }
 
-    public function setLocation(string $location): static
+    public function setLocation(SportType $SportType): static
     {
-        $this->location = $location;
+        $this->location = $SportType->getLocation();
 
         return $this;
     }
@@ -183,9 +183,9 @@ class Competition
         return $this->sportType;
     }
 
-    public function setSportType(string $sportType): static
+    public function setSportType(SportType $SportType): static
     {
-        $this->sportType = $sportType;
+        $this->sportType = $SportType->getName();
 
         return $this;
     }
@@ -196,7 +196,13 @@ class Competition
 
 public function setSportType1(SportType $SportType): static
 {
-    $this->sportType = $SportType;
+    $this->sportType = $SportType->getName();
+
+    return $this;
+}
+public function setLocation1(SportType $SportType): static
+{
+    $this->location = $SportType->getLocation();
 
     return $this;
 }

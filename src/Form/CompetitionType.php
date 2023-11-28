@@ -42,7 +42,8 @@ class CompetitionType extends AbstractType
             ])
             ->add('location', EntityType::class, [
                 'class' => SportType::class, // Replace with the actual namespace of your Author entity
-                'choice_label' => 'location', // Assuming Author entity has a method getFullName() that returns the author's full name
+                'choice_label' => 'location',
+                'choice_value' => 'location',  // Assuming Author entity has a method getFullName() that returns the author's full name
                 'placeholder' => '', 
                 'required' => true, 
 
@@ -70,7 +71,8 @@ class CompetitionType extends AbstractType
             ->add('prize')
               ->add('sportType', EntityType::class, [
                 'class' => SportType::class, // Replace with the actual namespace of your Author entity
-                'choice_label' => 'name', // Assuming Author entity has a method getFullName() that returns the author's full name
+                'choice_label' => 'name',
+                'choice_value' => 'name', // Assuming Author entity has a method getFullName() that returns the author's full name
                 'placeholder' => ' ', 
                 'required' => true, 
 
