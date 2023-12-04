@@ -51,12 +51,12 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" class="active">Home</a></li>
+                      <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
                             <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
-                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}">Reclamations</a></li> 
+                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}"class="active">Reclamations</a></li> 
                             <li class="main-button"><a href="#">USERNAME</a></li>
                            
                             
@@ -74,19 +74,46 @@ https://templatemo.com/tm-548-training-studio
 
     <!-- ***** Main Banner Area Start ***** -->
     <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
-        </video>
+    <video autoplay muted loop id="bg-video">
+        <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
+    </video>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                
-
-
-
-            </div>
+    <div class="video-overlay header-text">
+        <div class="caption">
+            <div class="container-fluid pt-4 px-4">
+    {# Display the success message if it exists #}
+    {% if successMessage %}
+        <div class="alert alert-success">
+            {{ successMessage|join(', ') }}
         </div>
-    </div>
+    {% endif %}
+
+    {% if latestReclamation %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="color: white;"> {# Apply white color to the row #}
+                        <td>{{ latestReclamation.userId }}</td>
+                        <td>{{ latestReclamation.date|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ latestReclamation.description }}</td>
+                        <!-- Add more columns as needed -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center">No reclamation found</p>
+    {% endif %}
+</div>
+
+
     <!-- ***** Main Banner Area End ***** -->
 
     <!-- ***** Features Item Start ***** -->

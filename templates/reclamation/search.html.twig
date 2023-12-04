@@ -1,0 +1,9 @@
+{# templates/search.html.twig #}
+
+{% if notFound %}
+    <p>Aucune réclamation trouvée pour cet utilisateur.</p>
+{% else %}
+    <h1>Réclamation pour l'utilisateur {{ reclamation.userId }}</h1>
+    <p>Contenu de la réclamation : {{ reclamation.content }}</p>
+    {# Ajoutez d'autres champs de réclamation que vous souhaitez afficher #}
+{% endif %}

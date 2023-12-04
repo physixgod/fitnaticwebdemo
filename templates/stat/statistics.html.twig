@@ -51,12 +51,12 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" class="active">Home</a></li>
+                     <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
                             <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
-                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}">Reclamations</a></li> 
+                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}"class="active">Reclamations</a></li> 
                             <li class="main-button"><a href="#">USERNAME</a></li>
                            
                             
@@ -74,19 +74,79 @@ https://templatemo.com/tm-548-training-studio
 
     <!-- ***** Main Banner Area Start ***** -->
     <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
-        </video>
+    <video autoplay muted loop id="bg-video">
+        <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
+    </video>
+     
+    <div class="video-overlay header-text">
+        <div class="caption">
+            <p>
+                <small style="color: white;">
+                    We value your feedback! please set your evaluation.
+                </small>
+            </p>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                
+            {% block body %}
+                {# Afficher le formulaire d'évaluation des étoiles #}
+                <form method="post" action="{{ path('statistics') }}" style="color: white;">
+                    {{ form_start(starRatingForm) }}
+                    {{ form_widget(starRatingForm) }}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    {{ form_end(starRatingForm) }}
+                </form>
 
+                <canvas id="barChart" width="200" height="65"></canvas>
 
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var ctx = document.getElementById('barChart').getContext('2d');
+                        var data = {{ data|json_encode|raw }};
+                        
+                        var chart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: Object.keys(data),
+                                datasets: [{
+                                    label: 'Number of Ratings',
+                                    data: Object.values(data),
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: 'white' // Couleur du texte de légende
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
 
-            </div>
+                <div class="mt-3">
+                    <a href="{{ path('add_reclamation') }}" class="btn btn-warning">Back to Reclamation</a>
+                </div>
+            {% endblock %}
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
     <!-- ***** Main Banner Area End ***** -->
 
     <!-- ***** Features Item Start ***** -->

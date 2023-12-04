@@ -51,12 +51,12 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
                             <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
                             <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
                             <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
-                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}">Reclamations</a></li> 
+                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}"class="active">Reclamations</a></li> 
                             <li class="main-button"><a href="#">USERNAME</a></li>
                            
                             
@@ -74,19 +74,57 @@ https://templatemo.com/tm-548-training-studio
 
     <!-- ***** Main Banner Area Start ***** -->
     <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
-        </video>
+    <video autoplay muted loop id="bg-video">
+        <source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4" />
+    </video>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                
+    <div class="video-overlay header-text">
+        <div class="caption">
+            <h2 style="color: white; font-size: 24px;">Reclamation</h2>
+            {% if errorMessage is not null %}
+                <div class="alert alert-danger" role="alert">
+                    {{ errorMessage }}
+                </div>
+            {% endif %}
+            
+            <div class="container mt-5">
+                <div class="form-container">
+                    {{ form_start(form) }}
 
+                    <div class="form-group">
+                        {{ form_row(form.userId, {'label': 'User ID:', 'label_attr': {'class': 'text-white'}}) }}
+                    </div>
 
+                    <div class="form-group">
+                        {{ form_row(form.date, {'label': 'Date:', 'label_attr': {'class': 'text-white'}}) }}
+                    </div>
 
+                    <div class="form-group">
+                        {{ form_row(form.description, {'label': 'Description:', 'label_attr': {'class': 'text-white'}, 'attr': {'style': 'height: 100px;'}}) }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form_row(form.Submit, {'label': 'Submit', 'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+
+                <div class="evaluation-footer text-white small mt-3">
+                    <p>We value your feedback! Please set your evaluation.</p>
+                    <a href="{{ path('statistics') }}" class="btn" style="background-color: orange; color: white;">Evaluation</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
     <!-- ***** Main Banner Area End ***** -->
 
     <!-- ***** Features Item Start ***** -->
