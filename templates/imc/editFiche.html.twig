@@ -1,0 +1,66 @@
+
+
+{% block body %}
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h1 style="text-align: center; color: #4DC3FA;">Edit IMC Fiche</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form-container'}}) }}
+
+        <div class="form-group">
+            {{ form_row(form.poids, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.taille, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.sexe, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.age, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        {# Add other form fields as needed #}
+
+        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer;">Save changes</button>
+
+        {{ form_end(form) }}
+
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="{{ path('ficheDB') }}" style="color: #4DC3FA;">Back to IMC Fiche list</a>
+        </p>
+    </div>
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.42em;
+            color: #A7A1AE;
+            background-color: #1F2739;
+        }
+
+        .form-container {
+            background-color: #2C3446;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #185875;
+            border-radius: 5px;
+            background-color: #2C3446;
+            color: #A7A1AE;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4DC3FA;
+        }
+    </style>
+{% endblock %}

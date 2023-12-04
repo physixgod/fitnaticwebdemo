@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Fiche/Style.css') }}">
+<script href "https://maps.googleapis.com/maps/api/js?key=AIzaSyA5wVTk5SQ3alGnIqPchU9CmU7v__ypM6Q"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <title>Fitnatic HOME PAGE</title>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="menu-column">
+        <ul class="nav">
+        
+            <li class="calendar"id="clipboardTrigges"></li>
+
+    <li class="clipboard"id="clipboardTrigge" ></li>
+  <li class="settings"id="clipboardTrigger"></li>
+<script>
+    document.getElementById('clipboardTrigger').addEventListener('click', function() {
+        window.location.href = "{{ path('ficheDB') }}";
+    });
+</script>
+<script>
+    document.getElementById('clipboardTrigge').addEventListener('click', function() {
+        window.location.href = "{{ path('generate_pdf') }}";
+    });
+</script>
+<script>
+    document.getElementById('clipboardTrigges').addEventListener('click', function() {
+        window.location.href = "{{ path('calendar') }}";
+    });
+</script>
+        </ul>
+        <div class="profile"></div>
+    </div>
+    <div class="summary-column">
+        <div class="profile-img" id="profileImage">
+            <div class="name"><br> </div>
+        </div>
+ <div class="statistics">
+            <h2>summary</h2>
+             {% if latestImc is not null %}
+                <div class="age"><span class="title title-age">{{ latestImc.age }}</span></div>
+                <div class="weight"><span class="title title-weight">{{ latestImc.poids }} kg</span></div>
+                <div class="float-none"></div>
+                <div class="height">
+                    <div class="icon"></div>
+                    <div class="data"><span>{{ latestImc.taille }} cm</span></div>
+                </div>
+                <div class="bmi"><span class="title title-bmi">{{ latestImc.IMC }}</span></div>
+                <div class="fat"><span class="title title-"></span></div>
+            {% else %}
+                <p>No data available.</p>
+            {% endif %}
+        </div>
+    </div>
+  <div class="content-column">
+    <div class="header-container" id="headerContainer">
+      <div class="nav">
+        <div class="content">
+          <p>
+            <span class="name"></span>Welcome to </p><span class="shape score">Fit</span><span class="shape">Natic</span>
+        </div>
+      </div>
+  
+      <div class="float-none"></div>
+      <div class="graph">
+        <canvas id="bpChart" style="position: relative; z-index: 100"></canvas>
+      </div>
+    </div>
+    <div class="split-container">
+   <div class="split">
+    <h3>BMI Categories</h3>
+    <div class="bmi-category">{{ latestImc.CategorieImc}}</div>
+    <div class="split-graph">
+         <canvas id="bmiCategoryGraph"></canvas>
+
+    </div>
+</div>
+<div class="split">
+    <h3>Ideal Weight</h3>
+    <div class="ideal-weight">{{ latestImc.poidsIdeal }} kg</div>
+    <div class="split-graph">
+        <!-- Add your graph or other content related to the ideal weight here -->
+        <canvas id="idealWeightGraph"></canvas>
+    </div>
+</div>
+
+
+      <div class="split">
+        <h3>BMI</h3>
+        <div class="BMI"></div>{{ latestImc.IMC }}
+        <div class="split-graph">
+          <canvas id="heartRateGraph"></canvas>
+        </div>
+      </div>
+    </div>
+   <div class="bmi-info">
+    <div class="bmi-graph">
+        <div class="bmi-graph-container">
+            <h2>Analytics</h2>
+            <div class="chart-container">
+                <canvas id="weightChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+         
+ 
+     
+
+ 
+</div>
+
+  
+    <script src="{{ asset('Fiche/fiche.js') }}"></script>
+<script>
+    var poidsActuel = {{ latestImc.poids }};
+    var poidsIdeal = {{ latestImc.poidsIdeal }};
+    var ctx = document.getElementById('weightChart').getContext('2d');
+
+    // Créez le graphique
+    var weightChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Poids Actuel',
+                data: [poidsActuel, 0], // Start from 0 for the second value
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Poids Idéal',
+                data: [poidsIdeal, 0], // Start from 0 for the second value
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    grid: {
+                        display: false 
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

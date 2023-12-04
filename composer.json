@@ -11,6 +11,8 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
+        "excelwebzone/recaptcha-bundle": "^1.5",
+        "karser/karser-recaptcha3-bundle": "*",
         "knplabs/knp-snappy-bundle": "^1.9",
         "nyholm/psr7": "^1.8",
         "phpdocumentor/reflection-docblock": "^5.3",
