@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Points;
 use App\Form\PointsType;
 use App\Repository\PointsRepository;
+use App\Service\MailService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PointsController extends AbstractController
@@ -21,7 +23,7 @@ class PointsController extends AbstractController
         ]);
     }
     #[Route('/userpoints', name: 'points')]
-    public function addPoints(ManagerRegistry $manager, Request $request, PointsRepository $repo): Response
+    public function addPoints(ManagerRegistry $manager, Request $request, PointsRepository $repo,MailerInterface $mailer, MailService $mailService): Response
     {
         $em = $manager->getManager();
         $data = $repo->findAll();
@@ -50,14 +52,19 @@ class PointsController extends AbstractController
                 $existingPoints = $existingPointsEntity->getPoints();
                 $existingPointsEntity->setPoints($existingPoints + $enteredPoints);
                 $em->persist($existingPointsEntity);
+                if($existingPoints + $enteredPoints>=500){
+                    $mailService->sendEmail($enteredUsername . '@gmail.com', 'Congratulations! You have won a prize!', "Dear " . $enteredUsername . ",\n\nWe are thrilled to inform you that your points have reached an impressive 500! This incredible achievement has earned you a special prize from us.");
+
+                   }
             } else {
                 
                 $points->setUsername($enteredUsername);
                 $points->setPoints($enteredPoints);
                 $em->persist($points);
             }
-    
+           
             $em->flush();
+
     
             return $this->redirectToRoute('points');
         }

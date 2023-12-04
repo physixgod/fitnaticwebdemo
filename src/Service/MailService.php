@@ -35,16 +35,15 @@ class MailService
             ->setTo($recipient)
             ->setBody($content, 'text/html');
 
-        // Send the message
         $result = $swiftMailer->send($message);
 
-        // Log the result
+  
         $this->logger->info('Email sent result: ' . $result);
     }
 
     public function sendEmailWithSymfonyMailer($recipient, $subject, $content)
     {
-        // Utiliser Symfony Mailer pour envoyer un email
+       
         $email = (new Email())
             ->from('adminFitnatic@esprit.tn')
             ->to($recipient)
@@ -53,7 +52,7 @@ class MailService
 
         $this->mailer->send($email);
 
-        // Log the result
+   
         $this->logger->info('Symfony Mailer: Email sent successfully');
     }
 }
