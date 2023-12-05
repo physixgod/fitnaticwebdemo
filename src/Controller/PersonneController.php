@@ -45,11 +45,11 @@ class PersonneController extends AbstractController
     }
 
     #[Route('/log', name: 'app_sig')]
-    public function customLogin(Request $request,SessionInterface $Session): Response
+    public function customLogin(Request $request,SessionInterface $Session,PersonneRepository $repo): Response
     {
         $error = null;
 
-     
+
         if ($request->isMethod('POST')) {
           
             $email = $request->request->get('email');
@@ -59,12 +59,12 @@ class PersonneController extends AbstractController
             $user = $userRepository->findOneBy(['email' => $email]);
            
 ;
-            $name=$user->getNom();
+            $name="xxxx";
             
             if ($user && password_verify($password, $user->getMotDePasse())) {
                 $Session->set('user',$user);
                 
-                return $this->redirectToRoute('app_user_interface',['name'=>$user]);
+                return $this->redirectToRoute('app_user_interface', ['name' => $name]);
             } else {
                
                 $error = 'Invalid email or password';
@@ -73,6 +73,7 @@ class PersonneController extends AbstractController
 
         return $this->render('Personne/login.html.twig', ['error' => $error]);
     } 
+    
 
     #[Route('/{_locale}/addPersonne', name: 'add_Personne')]
     public function addPersonne(EntityManagerInterface $entityManager, Request $request): Response
