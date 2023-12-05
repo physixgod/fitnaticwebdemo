@@ -12,6 +12,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CaloriqueController extends AbstractController
 {
+
+
+    #[Route('/calorique/showLatestBesoinsCalorique', name: 'show_latest_besoins_calorique', methods: ['GET'])]
+    public function showLatestBesoinsCalorique(): Response
+    {
+        $caloriqueRepository = $this->getDoctrine()->getRepository(Calorique::class);
+        $latestBesoinsCalorique = $caloriqueRepository->findLatestBesoinsCalorique();
+
+        if ($latestBesoinsCalorique === null) {
+            $this->addFlash('warning', 'No calorique data available.');
+            return $this->redirectToRoute('show_latest_besoins_calorique');
+        }
+
+        return $this->render('calorique/showLatestBesoinsCalorique.html.twig', [
+            'latestBesoinsCalorique' => $latestBesoinsCalorique,
+        ]);
+    }
     #[Route('/calorique/calculate', name: 'calculate_calorique', methods: ['GET', 'POST'])]
     public function calculateCalories(Request $request): Response
     {
@@ -20,7 +37,7 @@ class CaloriqueController extends AbstractController
 
         if ($latestImc === null) {
             $this->addFlash('error', 'No IMC available. Please calculate IMC first.');
-            return $this->redirectToRoute('calculate_calorique');
+            return $this->redirectToRoute('show_latest_besoins_calorique');
         }
 
         $form = $this->createForm(CaloriqueType::class);
@@ -54,11 +71,11 @@ class CaloriqueController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'An error occurred while saving Caloric data.');
                 // Log the error or handle it appropriately
-                return $this->redirectToRoute('calculate_calorique');
+                return $this->redirectToRoute('show_latest_besoins_calorique');
             }
 
             $this->addFlash('success', 'Caloric data saved successfully.');
-            return $this->redirectToRoute('calculate_calorique',['x'=>$a]);
+            return $this->redirectToRoute('show_latest_besoins_calorique');
         }
 
         return $this->render('calorique/Calorique.html.twig', [

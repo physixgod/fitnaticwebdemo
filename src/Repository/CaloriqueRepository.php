@@ -8,41 +8,27 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Calorique>
- *
- * @method Calorique|null find($id, $lockMode = null, $lockVersion = null)
- * @method Calorique|null findOneBy(array $criteria, array $orderBy = null)
- * @method Calorique[]    findAll()
- * @method Calorique[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CaloriqueRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Calorique::class);
-    }}
+    }
 
-//    /**
-//     * @return Calorique[] Returns an array of Calorique objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Retourne le dernier besoins calorique enregistré.
+     *
+     * @return Calorique|null
+     */
+    public function findLatestBesoinsCalorique(): ?Calorique
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC') // Assurez-vous que 'id' est le nom de la colonne d'identifiant de votre entité Calorique
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findOneBySomeField($value): ?Calorique
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 
+}

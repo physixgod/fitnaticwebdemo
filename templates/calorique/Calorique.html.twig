@@ -22,22 +22,21 @@ https://templatemo.com/tm-548-training-studio
     <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-       
-            margin: 0;
-            padding: 0;
+  body {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
-        .tricks-and-tips-articles-container {
+        main {
             max-width: 800px;
             text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .question-section {
@@ -54,7 +53,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     display: inline-block; /* Ensures the button doesn't take full width */
-    width:100%;
+
     
 }
 .logo em {
@@ -70,6 +69,37 @@ button {
  .fit-text {
     color: black; /* Couleur du texte noir */
   }
+
+      .tricks-and-tips-articles-container {
+    max-width: 800px;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.tricks-and-tips-articles {
+    background-color: #f5f5f5;
+    padding: 60px 0;
+        height: 100vh;
+}
+.inline-choice {
+    display: inline-block;
+    margin-left: 5px; /* Adjust left margin */
+    margin-right: 15px; /* Adjust right margin */
+}
+
+
+
+.question-section {
+    margin: 20px 0;
+    text-align: center;
+}
 
 
     </style>
@@ -103,7 +133,7 @@ button {
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-
+                          <li >  <a href="{{ path('app_user_interface') }}" ><span class="fit-text">Home</span></a></li>
                             <li ><a href="{{ path('add_Fiche') }}" class="list-link"><span class="fit-text">Calcul Imc</span></a></li>
                             <li>  <a href="{{ path('calculate_calorique') }}"><span class="fit-text">Calcul Besoins Caloriques</span></a></li>
                       <li >  <a href="{{ path('afficher_Imcs') }}">Fiche Personnelles</a></li>
@@ -121,87 +151,36 @@ button {
         </div>
     </header>
 
-    <main class="d-grid">
-        <!-- Tricks-and-tips-articles -->
-        <section class="tricks-and-tips-articles section-header-offset" id="tricks-and-tips">
-            <div class="tricks-and-tips-articles-container container d-grid">
 
-            <div id="start" class="question-section">
-                <h1>Devenez La Meilleure Version de Vous-Même</h1>
-                <p>Faites notre quiz pour obtenir un plan de menus personnel et atteindre vos objectifs en matière de poids !</p>
-                <button onclick="startQuiz()">Start Quiz</button>
-            </div>
+ <main>
+    <!-- Your form content goes here -->
 {{ form_start(form) }}
         
+       <div class="question-section">
+            <label for="objectif">Votre Objectif:</label>
+            {{ form_row(form.objectif, {'attr': {'class': 'inline-choice'}}) }}
+        </div>
 
-            <div id="question1" class="question-section" style="display: none;">
-                <p>Votre Objectif: {{ form_row(form.objectif) }}</p>
-                <button onclick="showNextQuestion(2)">Next</button>
-            </div>
+        <div class="question-section">
+            <label for="activite">Votre Activite:</label>
+            {{ form_row(form.activite, {'attr': {'class': 'inline-choice'}}) }}
+        </div>
 
-            <div id="question2" class="question-section" style="display: none;">
-                <p>Votre Activite: {{ form_row(form.activite) }}</p>
-                <button onclick="showNextQuestion(3)">Next</button>
-            </div>
+        <div class="question-section">
+            <label for="regimeAlimentaire">Votre Regime Alimentaire:</label>
+            {{ form_row(form.regimeAlimentaire, {'attr': {'class': 'inline-choice'}}) }}
+        </div>
 
-            <div id="question3" class="question-section" style="display: none;">
-                <p>Votre Regime Alimentaire: {{ form_row(form.regimeAlimentaire) }}</p>
-                <button onclick="showNextQuestion(4)">Next</button>
-            </div>
+        <div class="question-section">
+            <label for="niveauStress">Votre Niveau de Stress:</label>
+            {{ form_row(form.niveauStress, {'attr': {'class': 'inline-choice'}}) }}
+        </div>
 
- 
-
-<!-- ... votre code existant ... -->
-<div id="question4" class="question-section" style="display: none;">
-    <p>Votre Niveau de Stress: {{ form_row(form.niveauStress) }}</p>
-    {{ form_row(form.save) }}
-
-</div>
-
-      <div id="result" class="question-section" style="display: none;">
-    <p>Résultat du calcul: <span id="calculatedValue"></span></p>
-</div>
-      {{ form_end(form) }}
-
-  
-                <script>
-                    function startQuiz() {
-                        // Hide the start section
-                        document.getElementById('start').style.display = 'none';
-
-                        // Show the first question
-                        document.getElementById('question1').style.display = 'block';
-                    }
-
-                    function showNextQuestion(nextQuestion) {
-                        // Hide the current question
-                        document.getElementById('question' + (nextQuestion - 1)).style.display = 'none';
-
-                        // Show the next question
-                        document.getElementById('question' + nextQuestion).style.display = 'block';
-                    }
-
-    function calculateCalories() {
-        // Add logic here to calculate calories based on user inputs
-        // For demonstration purposes, let's assume the calculated value is 2284.033
-        var calculatedValue = 2284.033;
-
-        // Display the result
-        document.getElementById('calculatedValue').innerText = calculatedValue;
-
-        // Show the result section
-        document.getElementById('result').style.display = 'block';
-    }
-</script>
-
-                </script>
-
-          
-
-             
-            </div>
-        </section>
-    </main>
+        <div class="question-section">
+            {{ form_row(form.save) }}
+        </div>
+   {{ form_end(form) }}
+</main>
 
 
     <!-- jQuery -->

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <title>Fitnatic HOME PAGE</title>
+<!--
+
+TemplateMo 548 Training Studio
+
+https://templatemo.com/tm-548-training-studio
+
+-->
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+<style>
+
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+  body {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text */
+        }
+
+
+.section-header-offset {
+    margin-top: 80px;
+}
+
+.section-header-offset {
+    margin-top: 80px;
+}
+
+.tricks-and-tips-articles {
+    background-color: #f5f5f5;
+    padding: 60px 0;
+}
+
+
+ h1,
+        h2,
+        h3 {
+            color: #ffcc00; /* Primary color for headings */
+        }
+
+        p {
+            color: #ffcc00;
+        }
+
+
+
+
+
+        /* Result Styles */
+        h3 {
+            color:#ffcc00;
+        }
+
+        span {
+            color:#ffcc00;
+        }
+
+        p {
+            color: #ffcc00;
+        }
+
+.section-header-offset {
+    margin-top: 80px;
+}
+
+
+      .tricks-and-tips-articles-container {
+    max-width: 800px;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.custom-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+
+.btn-warning {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-warning:hover {
+    background-color: #333;
+    color: #ffcc00;
+}
+ .fit-text {
+    color: black; /* Couleur du texte noir */
+  }
+  /* ... (your existing styles) ... */
+
+
+/* ... (your existing styles) ... */
+
+
+
+    h3 {
+        color: #333;
+    }
+
+
+    p {
+        margin-top: 15px;
+    }
+
+    .obesity {
+        color: #ff0000;
+        font-weight: bold;
+    }
+
+    .overweight {
+        color: #ff9900;
+        font-weight: bold;
+    }
+
+    .underweight {
+        color: #009900;
+        font-weight: bold;
+    }
+
+    .normal-weight {
+        color: #0000ff;
+        font-weight: bold;
+    }
+    .aaa {
+         max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+</style>
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                <a href="index.html" class="logo">Fit<em> Natic</em></a>
+
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                          <li >  <a href="{{ path('app_user_interface') }}" ><span class="fit-text">Home</span></a></li>
+                            <li ><a href="{{ path('add_Fiche') }}" class="list-link"><span class="fit-text">Calcul Imc</span></a></li>
+                            <li>  <a href="{{ path('calculate_calorique') }}"><span class="fit-text">Calcul Besoins Caloriques</span></a></li>
+                            <li >  <a href="{{ path('afficher_Imcs') }}">Fiche Personnelles</a></li>
+
+                           
+                            
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+ <main class="d-grid">
+       
+        <section class="tricks-and-tips-articles section-header-offset text-center" id="tricks-and-tips">
+<h1> Plan Alimentaire</h1>
+
+{% if latestBesoinsCalorique is not null %}
+    <p>  Votre  besoins caloriques : {{ latestBesoinsCalorique.besoinsCaloriques }}</p>
+
+    {% set besoinsCaloriques = latestBesoinsCalorique.besoinsCaloriques %}
+
+    {% if besoinsCaloriques >= 1550 and besoinsCaloriques <= 1900 %}
+        <div class="meal-section">
+            <h2>Petit-déjeuner</h2>
+            <p>- Smoothie aux fruits <span>(200 kcal)</span></p>
+            <p>- Pain complet avec beurre d'amande <span>(180 kcal)</span></p>
+            <img src="smoothie_image_url" alt="Smoothie aux fruits" class="image">
+            <img src="pain_complet_image_url" alt="Pain complet avec beurre d'amande" class="image">
+        </div>
+
+ <div class="meal-section">
+    <h2>Déjeuner</h2>
+    <p>- Salade de thon avec des légumes frais <span>(300 kcal)</span></p>
+    <p>- Quinoa cuit à la vapeur <span>(220 kcal)</span></p>
+    <p>- Fruits (pomme ou orange) <span>(90 kcal)</span></p>
+    <img src="salade_de_thon_image_url" alt="Salade de thon avec des légumes frais" class="image">
+    <img src="quinoa_image_url" alt="Quinoa cuit à la vapeur" class="image">
+    <img src="fruits_image_url" alt="Fruits (pomme ou orange)" class="image">
+</div>
+
+<div class="meal-section">
+    <h2>Dîner</h2>
+    <p>- Poulet rôti aux herbes <span>(350 kcal)</span></p>
+    <p>- Patates douces cuites au four <span>(180 kcal)</span></p>
+    <p>- Légumes verts cuits à la vapeur <span>(100 kcal)</span></p>
+    <img src="poulet_roti_image_url" alt="Poulet rôti aux herbes" class="image">
+    <img src="patates_douces_image_url" alt="Patates douces cuites au four" class="image">
+    <img src="legumes_verts_image_url" alt="Légumes verts cuits à la vapeur" class="image">
+</div>
+
+<div class="snacks">
+    <h2>Collations</h2>
+    <p>- Carottes avec houmous <span>(150 kcal)</span></p>
+    <p>- Yaourt nature <span>(120 kcal)</span></p>
+    <img src="carottes_houmous_image_url" alt="Carottes avec houmous" class="image">
+    <img src="yaourt_nature_image_url" alt="Yaourt nature" class="image">
+</div>
+
+
+    {% elseif besoinsCaloriques >= 1901 and besoinsCaloriques <= 2350 %}
+    <div class="meal-section">
+        <h2>Petit-déjeuner</h2>
+        <p>- Smoothie aux fruits <span>(200 kcal)</span></p>
+        <p>- Pain complet grillé avec du beurre d'amande <span>(180 kcal)</span></p>
+        <img src="smoothie_image_url" alt="Smoothie aux fruits" class="image">
+        <img src="pain_complet_grille_image_url" alt="Pain complet grillé avec du beurre d'amande" class="image">
+    </div>
+
+    <div class="meal-section">
+        <h2>Déjeuner</h2>
+        <p>- Salade de thon avec des légumes frais <span>(300 kcal)</span></p>
+        <p>- Quinoa cuit à la vapeur <span>(220 kcal)</span></p>
+        <p>- Fruits (pomme ou orange) <span>(90 kcal)</span></p>
+        <img src="salade_de_thon_image_url" alt="Salade de thon avec des légumes frais" class="image">
+        <img src="quinoa_image_url" alt="Quinoa cuit à la vapeur" class="image">
+        <img src="fruits_image_url" alt="Fruits (pomme ou orange)" class="image">
+    </div>
+
+    <div class="meal-section">
+        <h2>Dîner</h2>
+        <p>- Poulet rôti aux herbes <span>(350 kcal)</span></p>
+        <p>- Patates douces cuites au four <span>(180 kcal)</span></p>
+        <p>- Légumes verts cuits à la vapeur <span>(100 kcal)</span></p>
+        <img src="poulet_roti_image_url" alt="Poulet rôti aux herbes" class="image">
+
+    </div>
+
+    <div class="snacks">
+        <h2>Collations</h2>
+        <p>- Carottes avec houmous <span>(150 kcal)</span></p>
+        <p>- Yaourt nature <span>(120 kcal)</span></p>
+
+    </div>
+
+
+   {% elseif besoinsCaloriques >= 2351 and besoinsCaloriques <= 2700 %}
+    <div class="meal-section">
+        <h2>Petit-déjeuner</h2>
+        <p>- Muesli avec yaourt et fruits <span>(280 kcal)</span></p>
+        <p>- Pain complet avec beurre d'arachide <span>(220 kcal)</span></p>
+
+    </div>
+
+    <div class="meal-section">
+        <h2>Déjeuner</h2>
+        <p>- Salade de poulet césar <span>(350 kcal)</span></p>
+        <p>- Riz basmati cuit <span>(250 kcal)</span></p>
+        <p>- Légumes sautés à l'ail <span>(100 kcal)</span></p>
+   
+    </div>
+
+    <div class="meal-section">
+        <h2>Dîner</h2>
+        <p>- Poisson grillé <span>(350 kcal)</span></p>
+        <p>- Quinoa cuit <span>(220 kcal)</span></p>
+        <p>- Brocoli à la vapeur <span>(80 kcal)</span></p>
+
+    </div>
+
+    <div class="snacks">
+        <h2>Collations</h2>
+        <p>- Barre de céréales aux noix <span>(150 kcal)</span></p>
+        <p>- Smoothie aux épinards <span>(120 kcal)</span></p>
+
+    </div>
+
+
+ {% elseif besoinsCaloriques >= 2701 and besoinsCaloriques <= 3000 %}
+    <div class="meal-section">
+        <h2>Petit-déjeuner</h2>
+        <p>- Smoothie protéiné (banane, protéine en poudre, épinards) <span>(300 kcal)</span></p>
+        <p>- Avocat sur du pain complet <span>(250 kcal)</span></p>
+
+    </div>
+
+    <div class="meal-section">
+        <h2>Déjeuner</h2>
+        <p>- Salade de quinoa aux légumes et aux pois chiches <span>(400 kcal)</span></p>
+        <p>- Poitrine de dinde grillée <span>(350 kcal)</span></p>
+        <p>- Légumes rôtis <span>(150 kcal)</span></p>
+
+    </div>
+
+    <div class="meal-section">
+        <h2>Dîner</h2>
+        <p>- Steak de saumon avec sauce au citron <span>(400 kcal)</span></p>
+        <p>- Riz sauvage cuit <span>(300 kcal)</span></p>
+        <p>- Asperges cuites à la vapeur <span>(100 kcal)</span></p>
+
+    </div>
+
+    <div class="snacks">
+        <h2>Collations</h2>
+        <p>- Yaourt grec à la noix de coco <span>(180 kcal)</span></p>
+        <p>- Poignée de noix et de fruits secs (amandes, noix de cajou) <span>(200 kcal)</span></p>
+
+    </div>
+{% endif %}
+
+ 
+
+{% else %}
+    <p>Aucune donnée calorique disponible.</p>
+{% endif %}
+</div>
+        </section>
+    </main>
+   
+    
+    <!-- ***** Contact Us Area Starts ***** -->
+    
+    <!-- ***** Contact Us Area Ends ***** -->
+    
+    <!-- ***** Footer Start ***** -->
+   
+
+    <!-- jQuery -->
+<!-- Include CSS stylesheets -->
+<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+<link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+
+<!-- Include JavaScript libraries -->
+<script src="{{ asset('user/assets/js/jquery-2.1.0.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<script src="{{ asset('user/assets/js/popper.js') }}"></script>
+<script src="{{ asset('user/assets/js/bootstrap.min.js') }}"></script>
+
+<!-- Plugins -->
+<script src="{{ asset('user/assets/js/scrollreveal.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/imgfix.min.js') }}"></script>
+<script src="{{ asset('user/assets/js/mixitup.js') }}"></script>
+<script src="{{ asset('user/assets/js/accordions.js') }}"></script>
+
+<!-- Global Init -->
+<script src="{{ asset('user/assets/js/custom.js') }}"></script>
+<!-- Add this to the head section -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+  </body>
+</html>

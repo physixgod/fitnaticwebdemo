@@ -51,14 +51,13 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('add_author') }}">Forum</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('add_Fiche') }}">Food Monitoring</a></li> 
-                            <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}">Reclamations</a></li> 
-                            <li class="main-button"><a href="#">SIGN OUT</a></li>
-                          
+                            <li class="scroll-to-section"><a href="#our-classes">Competitions</a></li>
+                            <li class="scroll-to-section"><a href="#schedule">Forum</a></li>
+                            <li class="scroll-to-section"><a href="#contact-us">Food Monitoring</a></li> 
+                            <li class="main-button"><a href="#">USERNAME</a></li>
+                           
                             
                         </ul>        
                         <a class='menu-trigger'>
@@ -81,7 +80,34 @@ https://templatemo.com/tm-548-training-studio
         <div class="video-overlay header-text">
             <div class="caption">
                 
-<h2>Welcome to <em>FITNATIC</em> </h2>
+  <div class="container">
+       <h1 class="text-white">Add Pub</h1>
+
+    
+        
+        <div align="center" class="form-group">
+        {# publication/add.html.twig #}
+
+{{ form_start(form) }}
+     <div align="center" class="form-group">
+            {{ form_label(form.nom_utilisateur, null, {'label_attr': {'class': 'text-white'}}) }}
+            {{ form_widget(form.nom_utilisateur, {'attr': {'class': 'form-control', 'style': 'width: 300px;'}}) }}
+        </div>
+
+   
+        <div align="center" class="form-group">
+            {{ form_label(form.evenement, null, {'label_attr': {'class': 'text-white'}}) }}
+            {{ form_widget(form.evenement, {'attr': {'class': 'form-control', 'style': 'width: 300px;'}}) }}
+        </div>
+
+     <div align="center"class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+{{ form_end(form) }}
+
+
+     
+    </div>
 
 
             </div>

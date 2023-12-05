@@ -103,14 +103,14 @@ class ImcController extends AbstractController
   
       if ($form->isSubmitted() && $form->isValid()) {
           // Verify reCAPTCHA
-          $recaptchaResponse = $request->request->get('g-recaptcha-response');
+         /* $recaptchaResponse = $request->request->get('g-recaptcha-response');
           $captchaCheck = $recaptcha->verify($recaptchaResponse);
   
           if (!$captchaCheck->isSuccess()) {
               // Handle reCAPTCHA validation failure
               $this->addFlash('error', 'Invalid reCAPTCHA. Please try again.');
               return $this->redirectToRoute('add_Fiche');
-          }
+          }*/
   
           // Continue with the rest of your form processing
           $imc->setIMC($this->calculerImc($imc->getPoids(), $imc->getTaille()));

@@ -51,14 +51,14 @@ https://templatemo.com/tm-548-training-studio
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" class="active">Home</a></li>
+                               <li class="scroll-to-section"><a href="{{ path('app_user_interface') }}" >Home</a></li>
                             <li class="scroll-to-section"><a href="#features">Activities</a></li>
                             <li class="scroll-to-section"><a href="{{ path('app_competitions') }}">Competitions</a></li>
-                            <li class="scroll-to-section"><a href="{{ path('add_author') }}">Forum</a></li>
+                            <li class="scroll-to-section"><a href="{{ path('add_author') }}"class="active">Forum</a></li>
                             <li class="scroll-to-section"><a href="{{ path('add_Fiche') }}">Food Monitoring</a></li> 
                             <li class="scroll-to-section"><a href="{{ path('add_reclamation') }}">Reclamations</a></li> 
                             <li class="main-button"><a href="#">SIGN OUT</a></li>
-                          
+                    
                             
                         </ul>        
                         <a class='menu-trigger'>
@@ -81,7 +81,46 @@ https://templatemo.com/tm-548-training-studio
         <div class="video-overlay header-text">
             <div class="caption">
                 
-<h2>Welcome to <em>FITNATIC</em> </h2>
+  <div class="container">
+       <h1 class="text-white">Add Event</h1>
+{# ... (existing code) #}
+
+{# ... (existing code) #}
+
+{% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+{% endif %}
+
+{# ... (existing code) #}
+
+
+
+
+
+        {{ form_start(form) }}
+        
+        <div align="center" class="form-group">
+            {{ form_label(form.date_evenement, null, {'label_attr': {'class': 'text-white'}}) }}
+            {{ form_widget(form.date_evenement, {'attr': {'class': 'form-control', 'style': 'width: 300px;'}}) }}
+        </div>
+
+        <div align="center"class="form-group">
+            {{ form_label(form.choix_evenement, null, {'label_attr': {'class': 'text-white'}}) }}
+            {{ form_widget(form.choix_evenement, {'attr': {'class': 'form-control', 'style': 'width: 300px;'}}) }}
+        </div>
+
+        <div align="center" class="form-group">
+            {{ form_label(form.description_evenement, null, {'label_attr': {'class': 'text-white'}}) }}
+            {{ form_widget(form.description_evenement, {'attr': {'class': 'form-control', 'style': 'width: 300px;'}}) }}
+        </div>
+
+        <div align="center"class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
 
 
             </div>
@@ -115,6 +154,8 @@ https://templatemo.com/tm-548-training-studio
                 </div>
             </div>
         </div>
+        <!-- evenement/ajouter.html.twig -->
+
     </footer>
 
     <!-- jQuery -->

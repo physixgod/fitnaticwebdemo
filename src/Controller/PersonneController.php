@@ -55,15 +55,16 @@ class PersonneController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
 
-            
             $userRepository = $this->getDoctrine()->getRepository(Personne::class);
             $user = $userRepository->findOneBy(['email' => $email]);
-
+           
+;
+            $name=$user->getNom();
             
             if ($user && password_verify($password, $user->getMotDePasse())) {
                 $Session->set('user',$user);
                 
-                return $this->redirectToRoute('app_homepage');
+                return $this->redirectToRoute('app_user_interface',['name'=>$name]);
             } else {
                
                 $error = 'Invalid email or password';
@@ -101,7 +102,7 @@ class PersonneController extends AbstractController
             $entityManager->flush();
 
             
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_user_interface');
         }
 
         return $this->render('Personne/addPersonne.html.twig', [
@@ -252,7 +253,7 @@ public function codemodif(Request $request, int $userId,ManagerRegistry $manager
         $this->addFlash('success', 'Success.');
 
        
-        return $this->redirectToRoute('app_homepage');
+        return $this->redirectToRoute('app_user_interface');
     }
 
     return $this->render('personne/modifpass.html.twig', [
@@ -280,7 +281,7 @@ public function adminLogin(Request $request): Response
         // Check if email and password match the expected values
         if ($formData['email'] === 'admin1@email.com' && $formData['motDePasse'] === 'admin123') {
             // Redirect to the desired route (replace 'desired_route' with your actual route)
-            return $this->redirectToRoute('show_admin');
+            return $this->redirectToRoute('app_homepage');
         } else {
             // Invalid credentials, add an error flash message
             $this->addFlash('error', 'Invalid email or password');

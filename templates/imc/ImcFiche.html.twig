@@ -124,12 +124,8 @@ https://templatemo.com/tm-548-training-studio
 }
 
 .recaptcha-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            length:50%;
-            width:100%;
-        }
+    margin-top: 20px;
+}
 
 .btn-warning {
     background-color: #ffcc00;
@@ -148,13 +144,80 @@ https://templatemo.com/tm-548-training-studio
  .fit-text {
     color: black; /* Couleur du texte noir */
   }
+  /* ... (your existing styles) ... */
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Adjust the margin as needed */
+}
+
+.left-image,
+.right-image {
+  width: 48%; /* Adjust the width as needed */
+  max-height: 300px; /* Adjust the max-height as needed */
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* ... (your existing styles) ... */
+
+
+
+    h3 {
+        color: #333;
+    }
+
+
+    p {
+        margin-top: 15px;
+    }
+
+    .obesity {
+        color: #ff0000;
+        font-weight: bold;
+    }
+
+    .overweight {
+        color: #ff9900;
+        font-weight: bold;
+    }
+
+    .underweight {
+        color: #009900;
+        font-weight: bold;
+    }
+
+    .normal-weight {
+        color: #0000ff;
+        font-weight: bold;
+    }
+    .aaa {
+         max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    span {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .aaa img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 </style>
     </head>
     
     <body>
     
-    <!-- ***** Preloader Start ***** -->
+    <!-- *** Preloader Start *** -->
     <div id="js-preloader" class="js-preloader">
       <div class="preloader-inner">
         <span class="dot"></span>
@@ -165,22 +228,22 @@ https://templatemo.com/tm-548-training-studio
         </div>
       </div>
     </div>
-    <!-- ***** Preloader End ***** -->
+    <!-- *** Preloader End *** -->
     
     
-    <!-- ***** Header Area Start ***** -->
+    <!-- *** Header Area Start *** -->
     <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                <a href="index.html" class="logo"><span class="fit-text">Fit</span><em> Natic</em></a>
+                        <!-- *** Logo Start *** -->
+                <a href="index.html" class="logo">Fit<em> Natic</em></a>
 
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
+                        <!-- *** Logo End *** -->
+                        <!-- *** Menu Start *** -->
                         <ul class="nav">
-                              <li >  <a href=""><span class="fit-text">Home</span></a></li>
+                              <li >  <a href="{{ path('app_user_interface') }}" ><span class="fit-text">Home</span></a></li>
                             <li ><a href="{{ path('add_Fiche') }}" class="list-link"><span class="fit-text">Calcul Imc</span></a></li>
                             <li>  <a href="{{ path('calculate_calorique') }}"><span class="fit-text">Calcul Besoins Caloriques</span></a></li>
                             <li >  <a href="{{ path('afficher_Imcs') }}">Fiche Personnelles</a></li>
@@ -191,7 +254,7 @@ https://templatemo.com/tm-548-training-studio
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
-                        <!-- ***** Menu End ***** -->
+                        <!-- *** Menu End *** -->
                     </nav>
                 </div>
             </div>
@@ -233,50 +296,84 @@ https://templatemo.com/tm-548-training-studio
         <span>{{ form_errors(form.poids) }}</span>
         
     </div>
+
+
+
+
+
+</div>
+    <!-- Add reCAPTCHA widget -->
+    <div class="recaptcha-wrapper">
+        <div class="g-recaptcha" data-sitekey="6LdX3iUpAAAAABInV86WBnZO_xe5KapyN0oK1ZHj"></div>
+    </div>
+
   
-    <!-- Add other input wrappers for weight, height, and reCAPTCHA as needed -->
-</div>
-<div class="recaptcha-wrapper">
-    {{ form_row(form.recaptcha) }}
-    <span>{{ form_errors(form.recaptcha) }}</span>
-</div>
+
+<script>
+    // Add a listener to the form submission
+    document.getElementById('').addEventListener('submit', function (event) {
+        var response = grecaptcha.getResponse();
+
+        // If reCAPTCHA is not filled out, prevent form submission
+        if (response.length === 0) {
+            event.preventDefault();
+            alert('Please fill out the reCAPTCHA.');
+        }
+    });
+</script>
 <br>
 <div>
     <button type="submit" class="btn btn-warning mt-3" id="calculerBtn">Calculer</button>
 </div>
+
+
 {{ form_end(form) }}
 <br>
 <br>
-            <div>
-                {% if imcResult %}
-                <div>
-                    <h3>Resultat IMC : </h3>
-                    <span>IMC: {{ imcResult.imc }}</span>
-                    <br>
-                    <span>Catégorie IMC: {{ imcResult.categorie }}</span>
-                    <br>
-                    <span>Poids Idéal: {{ imcResult.poidsIdeal }}</span>
-                    {% if imcResult.categorie == 'Obésité' %}
-                    <p>Attention! Vous êtes dans la catégorie d'obésité. Veuillez consulter un professionnel de la santé.</p>
-                    {% elseif imcResult.categorie == 'Surpoids' %}
-                    <p>Vous êtes en surpoids. Il est recommandé de maintenir un mode de vie sain.</p>
-                    {% elseif imcResult.categorie == 'Sous-poids' %}
-                    <p>Vous êtes en sous-poids. Assurez-vous de maintenir une alimentation équilibrée.</p>
-                    {% elseif imcResult.categorie == 'Poids normal' %}
-                    <p>Votre poids est normal. Continuez à adopter de bonnes habitudes alimentaires et de vie.</p>
-                    {% endif %}
-                </div>
+<div class="aaa">
+    {% if imcResult %}
+        <div>
+            <h3>Resultat IMC :</h3>
+            <span>IMC: {{ imcResult.imc }}</span>
+            <span>Catégorie IMC: 
+                {% if imcResult.categorie == 'Obésité' %}
+                    <span class="obesity">{{ imcResult.categorie }}</span>
+         <img src="{{ asset('imageFiche/obesite.jpg') }}" alt="Obesity Image">
+
+                {% elseif imcResult.categorie == 'Surpoids' %}
+                    <span class="overweight">{{ imcResult.categorie }}</span>
+            <img src="{{ asset('imageFiche/obesite.jpg') }}" alt="Obesity Image">
+                {% elseif imcResult.categorie == 'Sous-poids' %}
+                    <span class="underweight">{{ imcResult.categorie }}</span>
+                 <img src="{{ asset('imageFiche/sous.jpg') }}" alt="Souspoids">
+
+                {% elseif imcResult.categorie == 'Poids normal' %}
+                    <span class="normal-weight">{{ imcResult.categorie }}</span>
+                   <img src="{{ asset('imageFiche/bon.jpg') }}" alt="Normal Weight Image">
                 {% endif %}
-            </div>
+            </span>
+            <span>Poids Idéal: {{ imcResult.poidsIdeal }}</span>
+            {% if imcResult.categorie == 'Obésité' %}
+                <p class="obesity">Attention! Vous êtes dans la catégorie d'obésité. Veuillez consulter un professionnel de la santé.</p>
+            {% elseif imcResult.categorie == 'Surpoids' %}
+                <p class="overweight">Vous êtes en surpoids. Il est recommandé de maintenir un mode de vie sain.</p>
+            {% elseif imcResult.categorie == 'Sous-poids' %}
+                <p class="underweight">Vous êtes en sous-poids. Assurez-vous de maintenir une alimentation équilibrée.</p>
+            {% elseif imcResult.categorie == 'Poids normal' %}
+                <p class="normal-weight">Votre poids est normal. Continuez à adopter de bonnes habitudes alimentaires et de vie.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
         </section>
     </main>
    
     
-    <!-- ***** Contact Us Area Starts ***** -->
+    <!-- *** Contact Us Area Starts *** -->
     
-    <!-- ***** Contact Us Area Ends ***** -->
+    <!-- *** Contact Us Area Ends *** -->
     
-    <!-- ***** Footer Start ***** -->
+    <!-- *** Footer Start *** -->
    
 
     <!-- jQuery -->
@@ -302,6 +399,8 @@ https://templatemo.com/tm-548-training-studio
 
 <!-- Global Init -->
 <script src="{{ asset('user/assets/js/custom.js') }}"></script>
+<!-- Add this to the head section -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
   </body>
