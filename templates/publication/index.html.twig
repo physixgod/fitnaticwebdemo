@@ -16,8 +16,8 @@
         <tbody>
             {% for publication in publications %}
                 <tr>
-                    <td>{{ publication.title }}</td>
-                    <td>{{ publication.evenement.title }}</td>
+                    <td>{{ publication.getNomUtilisateur() }}</td>
+                    <td>{{ publication.getChoixEvenement()}}</td>
                     <td>
                         <a href="{{ path('publication_show', {'id': publication.id}) }}">Show</a>
                         <a href="{{ path('publication_edit', {'id': publication.id}) }}">Edit</a>

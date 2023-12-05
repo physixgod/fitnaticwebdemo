@@ -87,10 +87,10 @@
 							</a>
 
 							<div class="dropdown-menu bg-transparent border-0">
-								<a href="button.html" class="dropdown-item">Add Acitivity</a>
-								<a href="typography.html" class="dropdown-item">Manage Activities</a>
-								<a href="element.html" class="dropdown-item">Add Exercice</a>
-								<a href="element.html" class="dropdown-item">Manage Exercices</a>
+								<a href="{{ path('Activite_add') }}" class="dropdown-item">Add Acitivity</a>
+								<a href="{{ path('activite_list') }}" class="dropdown-item">Manage Activities</a>
+								<a href="{{ path('exercices_add') }}" class="dropdown-item">Add Exercice</a>
+								<a href="{{ path('exercices_list') }}" class="dropdown-item">Manage Exercices</a>
 							</div>
 						</div>
 						<a href="{{ path('points') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">

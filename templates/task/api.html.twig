@@ -1,0 +1,160 @@
+{# templates/task/api.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        nav {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .priority {
+            font-weight: bold;
+            color: #e44d26; /* Set the color based on your design */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>To-Do List</h1>
+    </header>
+
+    <nav>
+        <a href="{{ path('task_create') }}">
+            <button>Create New Task</button>
+        </a>
+    </nav>
+
+    <main>
+<ul>
+    {% if tasks is not empty %}
+        {% for task in tasks %}
+            <li class="{{ task.completed ? 'completed' : '' }}">
+                <strong><a href="{{ path('task_show', {'id': task.id}) }}">{{ task.title ?? 'No title' }}</a></strong>
+                <p>{{ task.description ?? 'No description' }}</p>
+                <p>Due Date: {{ task.dueDate ? task.dueDate|date('F j, Y H:i') : 'No due date' }}</p>
+                <p class="{{ task.completed ? 'completed' : '' }}">Completed: {{ task.completed ? 'Yes' : 'No' }}</p>
+                <p>Priority: <span class="priority {{ task.priority }}">{{ task.priority ?? 'No priority' }}</span></p>
+
+                <!-- Button to trigger update -->
+                <button class="update-task-button" data-task-id="{{ task.id }}">Update Task</button>
+
+                <!-- Form for updating tasks -->
+                <form action="{{ path('task_update', {'id': task.id}) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="PUT">
+                    <button type="submit">Update</button>
+                </form>
+
+                <!-- Form for deleting tasks -->
+               <form action="{{ path('task_delete', {'id': task.id}) }}" method="post" style="display: inline;">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" onclick="return confirm('Are you sure you want to delete this task?')">Delete</button>
+</form>
+            </li>
+        {% endfor %}
+        
+        <script>
+            document.querySelectorAll('.update-task-button').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const taskId = this.getAttribute('data-task-id');
+                    updateTask(taskId);
+                });
+            });
+
+            function updateTask(taskId) {
+                // Fetch the current task data from the server
+                fetch(`/task/update/${taskId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Output: Task updated!
+                    // You can perform additional actions after the update, such as refreshing the task list
+                    // window.location.reload(); // Example: Reload the page
+                })
+                .catch(error => {
+                    console.error('Error updating task:', error);
+                });
+            }
+        </script>
+    {% else %}
+        <p>No tasks found.</p>
+    {% endif %}
+</ul>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+		<title>Fitnatic HOME PAGE</title>
+		<!--
+				
+				TemplateMo 548 Training Studio
+				
+				https://templatemo.com/tm-548-training-studio
+				
+				-->
+		<!-- Additional CSS Files -->
+		<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+		<link rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+		<style>
+			/* Additional styles for the buttons */
+			.middle-buttons {
+				text-align: center;
+				margin-top: 80px;
+			}
+
+			.big-button {
+				display: inline-block;
+				padding: 20px 40px;
+				font-size: 18px;
+				font-weight: bold;
+				text-decoration: none;
+				background-color: orange; /* Blue color, you can change it */
+				color: #fff;
+				border-radius: 8px;
+				margin: 10px;
+			}
+
+			.exercise-content {
+				display: flex;
+
+				justify-content: space-around;
+			}
+
+			.exercise-entry {
+				width: 30%; /* Each exercise entry takes 30% of the container */
+				margin: 10px;
+				text-align: center;
+			}
+
+			.exercise-entry img {
+				width: 60px;
+				height: 60px;
+				border-radius: 8px;
+				margin-top: 50px;
+			}
+
+			.exercise-entry p {
+				color: white;
+				margin-top: 10px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- ***** Preloader Start ***** -->
+		<div id="js-preloader" class="js-preloader">
+			<div class="preloader-inner">
+				<span class="dot"></span>
+				<div class="dots">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Preloader End ***** -->
+
+
+		<!-- ***** Header Area Start ***** -->
+		<header class="header-area header-sticky">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<nav
+							class="main-nav">
+							<!-- ***** Logo Start ***** -->
+							<a href="index.html" class="logo">Fit<em>
+									Natic</em>
+							</a>
+							<!-- ***** Logo End ***** -->
+							<!-- ***** Menu Start ***** -->
+							<ul class="nav">
+								<li class="scroll-to-section">
+									<a href="{{ path('app_user_interface') }}">Home</a>
+								</li>
+								<li class="scroll-to-section">
+									<a href="{{ path('app_user_activities') }}" class="active">Activities</a>
+								</li>
+								<li class="scroll-to-section">
+									<a href="{{ path('app_competitions') }}">Competitions</a>
+								</li>
+								<li class="scroll-to-section">
+									<a href="{{ path('app_forum') }}">Forum</a>
+								</li>
+								<li class="scroll-to-section">
+									<a href="{{ path('add_Fiche') }}">Food Monitoring</a>
+								</li>
+								<li class="scroll-to-section">
+									<a href="{{ path('add_reclamation') }}">Reclamations</a>
+								</li>
+								<li class="main-button">
+									<a href="{{ path('app_homeuser') }}">SIGN OUT</a>
+								</li>
+
+
+							</ul>
+							<a class='menu-trigger'>
+								<span>Menu</span>
+							</a>
+							<!-- ***** Menu End ***** -->
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- ***** Header Area End ***** -->
+
+		<!-- ***** Main Banner Area Start ***** -->
+		<div class="main-banner" id="top">
+			<video autoplay muted loop id="bg-video">
+				<source src="user/assets/images/BROLL CINEMATIC FITNESS VIDEO _ SHORT GYM PROMO.mp4" type="video/mp4"/>
+			</video>
+
+			<div class="video-overlay header-text">
+				<div class="caption">
+					<div>
+						<ul>
+							<div class="middle-buttons">
+								<a href="{{ path('app_task') }}" class="big-button">Task</a>
+							</div>
+							<div id="cardioExercises" class="exercise-content">
+
+								<div class="exercise-entry">
+									<img src="{{ asset('products/runing.jpg') }}" alt="Cardio Exercise 1">
+									<p>Running</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/cycling.jpg') }}" alt="Cardio Exercise 2">
+									<p>Cycling</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/ropes.jpg') }}" alt="Cardio Exercise 3">
+									<p>Jumping Rope</p>
+								</div>
+							</div>
+							<div id="weightliftingExercises" class="exercise-content">
+								<div class="exercise-entry">
+									<img src="{{ asset('products/benchpress.jpg') }}" alt="Weightlifting Exercise 1">
+									<p>Bench Press</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/deadlift.jpg') }}" alt="Weightlifting Exercise 2">
+									<p>Deadlift</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/squats.jpg') }}" alt="Weightlifting Exercise 3">
+									<p>Squats</p>
+								</div>
+							</div>
+							<div id="bodybuildingExercises" class="exercise-content">
+								
+								<div class="exercise-entry">
+									<img src="{{ asset('products/BicepCurls.jpg') }}" alt="Bodybuilding Exercise 1">
+									<p>Bicep Curls</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/Dips.png') }}" alt="Bodybuilding Exercise 2">
+									<p>Tricep Dips</p>
+								</div>
+								<div class="exercise-entry">
+									<img src="{{ asset('products/legpress.png') }}" alt="Bodybuilding Exercise 3">
+									<p>Leg Press</p>
+								</div>
+							</div>
+
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Main Banner Area End ***** -->
+
+
+		<!-- ***** Features Item Start ***** -->
+
+		<!-- ***** Call to Action End ***** -->
+
+		<!-- ***** Our Classes Start ***** -->
+
+		<!-- ***** Contact Us Area Ends ***** -->
+
+		<!-- ***** Footer Start ***** -->
+			<footer>
+				<div class="container"> <div class="row">
+					<div class="col-lg-12">
+						<p>Copyright &copy; 
+														                    
+														                    - Designed by
+							<a rel="nofollow" href="https://templatemo.com" class="tm-text-link" target="_parent">Fitnatic Team</a><br>
+
+
+						</p>
+
+						<!-- You shall support us a little via PayPal to info@templatemo.com -->
+
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- jQuery -->
+		<!-- Include CSS stylesheets -->
+		<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('user/assets/css/font-awesome.css') }}">
+		<link
+		rel="stylesheet" href="{{ asset('user/assets/css/templatemo-training-studio.css') }}">
+
+		<!-- Include JavaScript libraries -->
+		<script src="{{ asset('user/assets/js/jquery-2.1.0.min.js') }}"></script>
+
+		<!-- Bootstrap -->
+		<script src="{{ asset('user/assets/js/popper.js') }}"></script>
+		<script src="{{ asset('user/assets/js/bootstrap.min.js') }}"></script>
+
+		<!-- Plugins -->
+		<script src="{{ asset('user/assets/js/scrollreveal.min.js') }}"></script>
+		<script src="{{ asset('user/assets/js/waypoints.min.js') }}"></script>
+		<script src="{{ asset('user/assets/js/jquery.counterup.min.js') }}"></script>
+		<script src="{{ asset('user/assets/js/imgfix.min.js') }}"></script>
+		<script src="{{ asset('user/assets/js/mixitup.js') }}"></script>
+		<script src="{{ asset('user/assets/js/accordions.js') }}"></script>
+
+		<!-- Global Init -->
+		<script src="{{ asset('user/assets/js/custom.js') }}"></script>
+		<script>
+			function showExercises(category) { // Hide all exercise content
+document.getElementById('cardioExercises').style.display = 'none';
+document.getElementById('weightliftingExercises').style.display = 'none';
+document.getElementById('bodybuildingExercises').style.display = 'none';
+
+// Show the selected category's exercise content
+document.getElementById(category + 'Exercises').style.display = 'block';
+}
+		</script>
+
+
+	</body>
+</html>

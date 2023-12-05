@@ -7,10 +7,10 @@
 
     <dl>
         <dt>Title</dt>
-        <dd>{{ publication.title }}</dd>
+        <dd>{{ publication.getNomUtilisateur() }}</dd>
 
         <dt>Event</dt>
-        <dd>{{ publication.evenement.title }}</dd>
+        <dd>{{ publication.getChoixEvenement() }}</dd>
     </dl>
 
     <a href="{{ path('publication_index') }}">Back to the list</a>

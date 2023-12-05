@@ -21,11 +21,8 @@ class Publication
     #[ORM\Column(length: 255)]
     private ?string $choix_evenement = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Evenement")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $evenement;
+ 
+    
 
     public function getId(): ?int
     {
@@ -56,15 +53,5 @@ class Publication
         return $this;
     }
 
-    public function getEvenement(): ?Evenement
-    {
-        return $this->evenement;
-    }
 
-    public function setEvenement(?Evenement $evenement): self
-    {
-        $this->evenement = $evenement;
-
-        return $this;
-    }
 }
